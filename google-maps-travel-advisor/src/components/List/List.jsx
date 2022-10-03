@@ -13,20 +13,11 @@ import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
 import useStyles from "./styles";
 
-const List = () => {
+const List = ({ places }) => {
   const classes = useStyles();
 
   const [type, setType] = React.useState("restaurante");
   const [rating, setRating] = React.useState(0);
-
-  const places = [
-    { name: "1" },
-    { name: "2" },
-    { name: "3" },
-    { name: "1" },
-    { name: "2" },
-    { name: "3" },
-  ];
 
   return (
     <div className={classes.container}>
@@ -36,9 +27,9 @@ const List = () => {
       <FormControl className={classes.formControl}>
         <InputLabel>Tipo</InputLabel>
         <Select value={type} onChange={(e) => setType(e.target.value)}>
-          <MenuItem value="restaurantes">Restaurantes</MenuItem>
-          <MenuItem value="hoteis">Hoteis</MenuItem>
-          <MenuItem value="atracoes">Atrações</MenuItem>
+          <MenuItem value="Restaurantes">Restaurantes</MenuItem>
+          <MenuItem value="Hoteis">Hoteis</MenuItem>
+          <MenuItem value="Atrações">Atrações</MenuItem>
         </Select>
       </FormControl>
 
