@@ -15,6 +15,13 @@ function App() {
   const [coordinates, setCoordinates] = React.useState({});
   const [bounds, setBounds] = React.useState({});
 
+  const [type, setType] = React.useState("restaurants");
+  const [rating, setRating] = React.useState('');
+
+  const [childClicked, setChildClicked] = React.useState(null);
+
+  const [isLoading, setIsLoading] = React.useState(false);
+
   React.useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -25,11 +32,14 @@ function App() {
 
   React.useEffect(() => {
     if (bounds) {
-      getPlacesData(bounds.sw, bounds.ne).then((data) => {
+      setIsLoading(true)
+
+      getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
         setPlaces(data);
+        setIsLoading(false)
       });
     }
-  }, [coordinates, bounds]);
+  }, [type, coordinates, bounds]);
 
   return (
     <>
@@ -37,7 +47,15 @@ function App() {
       <Header />
       <Grid container spacing={3} style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
-          <List places={places} />
+          <List
+            places={places}
+            childClicked={childClicked}
+            isLoading={isLoading}
+            type={type}
+            setType={setType}
+            rating={rating}
+            setRating={setRating}
+          />
         </Grid>
 
         <Grid item xs={12} md={8}>
@@ -45,6 +63,8 @@ function App() {
             setCoordinates={setCoordinates}
             setBounds={setBounds}
             coordinates={coordinates}
+            places={places}
+            setChildClicked={setChildClicked}
           />
         </Grid>
       </Grid>

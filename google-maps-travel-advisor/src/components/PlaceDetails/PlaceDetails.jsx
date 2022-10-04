@@ -17,8 +17,10 @@ import Rating from "@material-ui/lab/Rating";
 
 import useStyles from "./styles";
 
-const PlaceDetails = ({ place }) => {
+const PlaceDetails = ({ place, selected, refProp }) => {
   const classes = useStyles();
+
+  if (selected) refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
     <Card elevation={6}>
@@ -31,6 +33,13 @@ const PlaceDetails = ({ place }) => {
         <Typography gutterBottom variant="h5">
           {place.name}
         </Typography>
+
+        <Box display="flex" justifyContent="space-between">
+          <Rating size="small" value={Number(place.rating)} readOnly />
+          <Typography gutterBottom variant="subtitle1">
+            {place.num_reviews} avaliações
+          </Typography>
+        </Box>
 
         <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">Preço</Typography>
@@ -91,6 +100,24 @@ const PlaceDetails = ({ place }) => {
             <PhoneIcon /> {place.phone}
           </Typography>
         )}
+
+        <CardActions>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => window.open(place.web_url, "_blank")}
+          >
+            Trip Advisor
+          </Button>
+
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => window.open(place.web_url, "_blank")}
+          >
+            Website
+          </Button>
+        </CardActions>
       </CardContent>
     </Card>
   );
