@@ -50,7 +50,7 @@ const SendMessages = () => {
             }}
             type="submit"
           >
-            Send
+            Enviar
           </Button>
         </div>
       </form>
